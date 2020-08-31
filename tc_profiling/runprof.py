@@ -69,7 +69,9 @@ with open(sys.argv[1], 'r') as fp:
         # Work on the pruned format.
         if values[-4:] == ['', '', '', '']:
             values[-4:] = [0, 0, 0, 1]
-        optype,trans_a,trans_b,M,N,K,lda,ldb,ldc,stride_a,stride_b,stride_c,batch = values
+        elif len(values) == 12:
+            values += [0, 0, 0, 1]
+        _,_,_,optype,trans_a,trans_b,M,N,K,lda,ldb,ldc,stride_a,stride_b,stride_c,batch = values
         impls = list(range(24)) + [f'tc{i}' for i in range(16)] + [f'32{i}' for i in range(24)] + ['_default', 'tc_default', '32_default']
         for impl in impls:
             #title = A + ':' + B + ':' + C + ':' + str(impl)
